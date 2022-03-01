@@ -7,7 +7,7 @@ from random import choice, randint
 WIDTH = 800
 HEIGHT = 600
 BACKGROUND = 'white'
-BALL_SIZE = 25
+BALL_SIZE = 40
 BALL_COLOR = "RED"
 BALL_DIR = {'x': -1, 'y': 1}
 BALL_DIR2 = {'x': -1, 'y': 1}
@@ -45,7 +45,7 @@ def animation():
     coords2[0] += BALL_SHIFT*BALL_DIR2['x']
     # y
     coords[1] += BALL_SHIFT*BALL_DIR['y']
-    coords2[1] += BALL_SHIFT*BALL_DIR['y']
+    coords2[1] += BALL_SHIFT*BALL_DIR2['y']
     coords = uncenter(coords[0], coords[1])
     coords2[1] += BALL_SHIFT*BALL_DIR2['y']
     coords2 = uncenter(coords2[0], coords2[1])
@@ -95,4 +95,3 @@ canvas.create_oval(coords2[0], coords2[1], coords2[2], coords2[3], fill=BALL_COL
 
 animation()
 canvas.mainloop()
-
