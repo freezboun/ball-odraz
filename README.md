@@ -10,11 +10,11 @@ BACKGROUND = 'white'
 BALL_SIZE = 25
 BALL_COLOR = "RED"
 BALL_DIR = {'x': -1, 'y': 1}
-BALL_DIR2 = {'x': 1, 'y': 1}
-BALL_SHIFT = 15
+BALL_DIR2 = {'x': -1, 'y': 1}
+BALL_SHIFT = 10
 REFRESH = 20
 INITIAL_COORDS = {'x': WIDTH//2, 'y': HEIGHT//2}
-INITIAL_COORDS2 = {'x': WIDTH//2+50, 'y': HEIGHT//2}
+INITIAL_COORDS2 = {'x': WIDTH//2, 'y': HEIGHT//2}
 COUNT = 1
 
 BALL_COLORS= ["red", "blue", "yellow", "green", "purple", "pink"]
@@ -39,7 +39,7 @@ def center(corner_coords: list) -> list[int]:
 def animation():
     global WIDTH, BALL_COLOR, coords, COUNT, BALL_SIZE, BALL_COLORS, coords2
     coords = center(canvas.coords('BALL'))
-    coords2 = center(canvas.coords2('BALL2'))
+    coords2 = center(canvas.coords('BALL2'))
     # x
     coords[0] += BALL_SHIFT*BALL_DIR['x']
     coords2[0] += BALL_SHIFT*BALL_DIR2['x']
@@ -66,32 +66,33 @@ def animation():
         BALL_COLOR=choice(BALL_COLORS)
 
     if coords2[0] <= 0:
-        BALL_DIR['x'] = 1
+        BALL_DIR2['x'] = 1
         BALL_COLOR=choice(BALL_COLORS)
 
     if coords2[1] <= 0:
-        BALL_DIR['y'] = 1
+        BALL_DIR2['y'] = 1
         BALL_COLOR=choice(BALL_COLORS)
 
     if coords2[2] >= WIDTH:
-        BALL_DIR['x'] = -1
+        BALL_DIR2['x'] = -1
         BALL_COLOR=choice(BALL_COLORS)
 
     if coords2[3] >= HEIGHT:
-        BALL_DIR['y'] = -1
+        BALL_DIR2['y'] = -1
         BALL_COLOR=choice(BALL_COLORS)
 
     canvas.delete('BALL')
-    canvas.create_oval(coords[0], coords[1], coords[2], coords[3], fill=BALL_COLOR, tags='BALL')
     canvas.delete('BALL2')
+    canvas.create_oval(coords[0], coords[1], coords[2], coords[3], fill=BALL_COLOR, tags='BALL')
     canvas.create_oval(coords2[0], coords2[1], coords2[2], coords2[3], fill=BALL_COLOR, tags='BALL2')
     canvas.after(REFRESH, animation)
 
 
 coords = uncenter(INITIAL_COORDS['x'], INITIAL_COORDS['y'])
-canvas.create_oval(coords[0], coords[1], coords[2], coords[3], fill=BALL_COLOR, tags='BALL2')
+canvas.create_oval(coords[0], coords[1], coords[2], coords[3], fill=BALL_COLOR, tags='BALL')
 coords2 = uncenter(INITIAL_COORDS2['x'], INITIAL_COORDS2['y'])
 canvas.create_oval(coords2[0], coords2[1], coords2[2], coords2[3], fill=BALL_COLOR, tags='BALL2')
 
 animation()
 canvas.mainloop()
+
